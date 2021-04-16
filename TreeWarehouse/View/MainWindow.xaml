@@ -9,7 +9,12 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <DataGrid Margin="233,0,0,0" ItemsSource="{Binding Path=CurrentFolder.Products}" AutoGenerateColumns="False">
+        <Menu Height="25" VerticalAlignment="Top">
+            <MenuItem Header="Файл">
+                <MenuItem Header="Сохранить" Command="{Binding SaveWarehouseCommand}" CommandParameter="{Binding CurrentWarehouse}"></MenuItem>
+            </MenuItem>
+        </Menu>
+        <DataGrid Margin="233,25,0,0" ItemsSource="{Binding Path=CurrentFolder.Products}" AutoGenerateColumns="False">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Название товара" Binding="{Binding Name}" />
                 <DataGridTextColumn Header="Артикул" Binding="{Binding VendorCode}" />
@@ -17,7 +22,7 @@
                 <DataGridTextColumn Header="Цена" Binding="{Binding Cost}" />
             </DataGrid.Columns>
         </DataGrid>
-        <TreeView HorizontalAlignment="Left" Width="233" ItemsSource="{Binding Path=CurrentWarehouse.Folders}">
+        <TreeView Margin="0, 25, 0, 0" HorizontalAlignment="Left" Width="233" ItemsSource="{Binding Path=CurrentWarehouse.Folders}">
             <TreeView.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Добавить раздел" Command="{Binding Path=AddRootItemCommand}" />

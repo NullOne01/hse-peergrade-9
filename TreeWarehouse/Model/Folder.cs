@@ -8,6 +8,7 @@ using TreeWarehouse.Annotations;
 
 namespace TreeWarehouse.Model
 {
+    [DataContract(IsReference=true)]
     public class Folder : INotifyPropertyChanged
     {
         private ObservableCollection<Product> _products = new ObservableCollection<Product>();
@@ -23,10 +24,9 @@ namespace TreeWarehouse.Model
         public Folder()
         {
             Parent = null;
-            //_products = new ObservableCollection<Product>();
-            //_subFolders = new ObservableCollection<Folder>();
         }
 
+        [DataMember]
         public Folder Parent
         {
             get => _parent;
@@ -37,6 +37,7 @@ namespace TreeWarehouse.Model
             }
         }
         
+        [DataMember]
         public ObservableCollection<Product> Products
         {
             get => _products;
@@ -47,6 +48,7 @@ namespace TreeWarehouse.Model
             }
         }
         
+        [DataMember]
         public ObservableCollection<Folder> SubFolders
         {
             get => _subFolders;
@@ -57,6 +59,7 @@ namespace TreeWarehouse.Model
             }
         }
         
+        [DataMember]
         public string Name
         {
             get => _name;

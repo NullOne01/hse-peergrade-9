@@ -8,15 +8,12 @@ using System.Runtime.Serialization;
 
 namespace TreeWarehouse.Model
 {
+    [DataContract(IsReference=true)]
     public class Warehouse : INotifyPropertyChanged
     {
         private ObservableCollection<Folder> _folders = new ObservableCollection<Folder>();
 
-        public Warehouse()
-        {
-            //_folders = new ObservableCollection<Folder>();
-        }
-        
+        [DataMember]
         public ObservableCollection<Folder> Folders
         {
             get => _folders;

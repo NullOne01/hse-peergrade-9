@@ -6,6 +6,7 @@ using TreeWarehouse.Annotations;
 
 namespace TreeWarehouse.Model
 {
+    [DataContract]
     public class Product : INotifyPropertyChanged
     {
         private string _name;
@@ -16,6 +17,7 @@ namespace TreeWarehouse.Model
         private string _description;
         private ProductImage _image;
 
+        [DataMember]
         public string Name
         {
             get => _name;
@@ -26,6 +28,7 @@ namespace TreeWarehouse.Model
             }
         }
 
+        [DataMember]
         public string VendorCode
         {
             get => _vendorCode;
@@ -36,6 +39,7 @@ namespace TreeWarehouse.Model
             }
         }
 
+        [DataMember]
         public uint Cost
         {
             get => _cost;
@@ -46,6 +50,7 @@ namespace TreeWarehouse.Model
             }
         }
 
+        [DataMember]
         public uint StockNum
         {
             get => _stockNum;
@@ -56,6 +61,7 @@ namespace TreeWarehouse.Model
             }
         }
 
+        [DataMember]
         public uint NeedStockNum
         {
             get => _needStockNum;
@@ -66,6 +72,7 @@ namespace TreeWarehouse.Model
             }
         }
 
+        [DataMember]
         public string Description
         {
             get => _description;
