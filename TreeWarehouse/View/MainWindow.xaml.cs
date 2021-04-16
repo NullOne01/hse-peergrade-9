@@ -23,7 +23,7 @@ namespace TreeWarehouse
     {
         public MainWindow() {
             InitializeComponent();
-            
+
             DataContext = new MainViewModel();
         }
     }

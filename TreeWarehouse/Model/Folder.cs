@@ -1,7 +1,9 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
 using TreeWarehouse.Annotations;
 
 namespace TreeWarehouse.Model
@@ -10,7 +12,31 @@ namespace TreeWarehouse.Model
     {
         private ObservableCollection<Product> _products = new ObservableCollection<Product>();
         private ObservableCollection<Folder> _subFolders = new ObservableCollection<Folder>();
+        private string _name;
+        private Folder _parent;
 
+        public Folder(Folder parent)
+        {
+            Parent = parent;
+        }
+
+        public Folder()
+        {
+            Parent = null;
+            //_products = new ObservableCollection<Product>();
+            //_subFolders = new ObservableCollection<Folder>();
+        }
+
+        public Folder Parent
+        {
+            get => _parent;
+            set
+            {
+                _parent = value;
+                OnPropertyChanged(nameof(Parent));
+            }
+        }
+        
         public ObservableCollection<Product> Products
         {
             get => _products;
@@ -20,7 +46,7 @@ namespace TreeWarehouse.Model
                 OnPropertyChanged(nameof(Products));
             }
         }
-
+        
         public ObservableCollection<Folder> SubFolders
         {
             get => _subFolders;
@@ -28,6 +54,16 @@ namespace TreeWarehouse.Model
             {
                 _subFolders = value;
                 OnPropertyChanged(nameof(SubFolders));
+            }
+        }
+        
+        public string Name
+        {
+            get => _name;
+            set
+            {
+                _name = value;
+                OnPropertyChanged(nameof(Name));
             }
         }
 
