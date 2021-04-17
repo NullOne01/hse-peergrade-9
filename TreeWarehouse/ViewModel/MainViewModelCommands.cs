@@ -1,4 +1,6 @@
 using GalaSoft.MvvmLight.CommandWpf;
+using Microsoft.Win32;
+using System.Windows;
 using TreeWarehouse.Model;
 using TreeWarehouse.ViewModel.Utilities;
 
@@ -47,10 +49,8 @@ namespace TreeWarehouse.ViewModel
 
         private RelayCommand<Folder> _removeTreeItemCommand;
 
-        public RelayCommand<Folder> RemoveTreeItemCommand
-        {
-            get
-            {
+        public RelayCommand<Folder> RemoveTreeItemCommand {
+            get {
                 _removeTreeItemCommand = new RelayCommand<Folder>(
                     (folder) => { CurrentWarehouse.ForceDeleteFolder(folder); },
                     (folder) => folder != null && folder.Products.Count <= 0 && folder.SubFolders.Count <= 0);
@@ -63,8 +63,40 @@ namespace TreeWarehouse.ViewModel
         public RelayCommand<Warehouse> SaveWarehouseCommand {
             get {
                 _saveWarehouseCommand = new RelayCommand<Warehouse>(
-                    (warehouse) => { warehouse.Save("test.xml"); });
+                    (warehouse) => {
+                        try {
+                            SaveFileDialog saveFileDialog = new SaveFileDialog();
+                            saveFileDialog.Filter = "xml file(*.xml)|*.xml";
+                            if ((bool)saveFileDialog.ShowDialog()) {
+                                warehouse.Save(saveFileDialog.FileName);
+                            }
+                        } catch {
+                            MessageBox.Show("Не получилось сохранить :c");
+                        }
+                    });
                 return _saveWarehouseCommand;
+            }
+        }
+
+        private RelayCommand _loadWarehouseCommand;
+
+        public RelayCommand LoadWarehouseCommand {
+            get {
+                _loadWarehouseCommand = new RelayCommand(
+                    () => {
+                        try {
+                            OpenFileDialog openFileDialog = new OpenFileDialog();
+                            openFileDialog.Filter = "xml file(*.xml)|*.xml";
+                            if ((bool)openFileDialog.ShowDialog()) {
+                                CurrentWarehouse = SaveLoadWarehouse.Load(openFileDialog.FileName);
+                                CurrentFolder = null;
+                            }
+                        }
+                        catch {
+                            MessageBox.Show("Не получилось загрузить :c");
+                        }
+                    });
+                return _loadWarehouseCommand;
             }
         }
     }

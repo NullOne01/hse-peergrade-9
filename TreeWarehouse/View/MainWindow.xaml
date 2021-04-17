@@ -12,6 +12,7 @@
         <Menu Height="25" VerticalAlignment="Top">
             <MenuItem Header="Файл">
                 <MenuItem Header="Сохранить" Command="{Binding SaveWarehouseCommand}" CommandParameter="{Binding CurrentWarehouse}"></MenuItem>
+                <MenuItem Header="Загрузить" Command="{Binding LoadWarehouseCommand}"></MenuItem>
             </MenuItem>
         </Menu>
         <DataGrid Margin="233,25,0,0" ItemsSource="{Binding Path=CurrentFolder.Products}" AutoGenerateColumns="False">
