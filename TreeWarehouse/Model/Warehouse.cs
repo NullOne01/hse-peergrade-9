@@ -11,16 +11,16 @@ namespace TreeWarehouse.Model
     [DataContract(IsReference=true)]
     public class Warehouse : INotifyPropertyChanged
     {
-        private ObservableCollection<Folder> _folders = new ObservableCollection<Folder>();
+        private Folder _rootFolder = new Folder();
 
         [DataMember]
-        public ObservableCollection<Folder> Folders
+        public Folder RootFolder
         {
-            get => _folders;
+            get => _rootFolder;
             set
             {
-                _folders = value;
-                OnPropertyChanged(nameof(Folders));
+                _rootFolder = value;
+                OnPropertyChanged(nameof(RootFolder));
             }
         }
 
@@ -32,7 +32,7 @@ namespace TreeWarehouse.Model
             }
 
             // If folder is in root (no parent), then delete from root.
-            return Folders.Remove(folderToRemove);
+            return RootFolder.SubFolders.Remove(folderToRemove);
         }
 
         /*public bool ForceDeleteFolder(Folder folderToRemove)

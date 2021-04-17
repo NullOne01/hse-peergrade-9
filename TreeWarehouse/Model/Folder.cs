@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using TreeWarehouse.Annotations;
@@ -65,10 +66,19 @@ namespace TreeWarehouse.Model
             get => _name;
             set
             {
+                if (Parent != null && Parent.SubFolders.Any((folder) => folder.Name == value)){
+                    Name = value + "1";
+                    OnPropertyChanged(nameof(Name));
+                    return;
+                }
+
                 _name = value;
                 OnPropertyChanged(nameof(Name));
             }
         }
+
+        [DataMember]
+        public int Priority { get; set; }
 
         public event PropertyChangedEventHandler PropertyChanged;
 

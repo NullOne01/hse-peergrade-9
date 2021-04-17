@@ -41,7 +41,7 @@ namespace TreeWarehouse.ViewModel
             {
                 _addRootItemCommand = new RelayCommand(() =>
                 {
-                    CurrentWarehouse.Folders.Add(new Folder() {Name = "NewRootFolder"});
+                    CurrentWarehouse.RootFolder.SubFolders.Add(new Folder(CurrentWarehouse.RootFolder) {Name = "NewRootFolder"});
                 });
                 return _addRootItemCommand;
             }

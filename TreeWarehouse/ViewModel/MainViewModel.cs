@@ -36,14 +36,15 @@ namespace TreeWarehouse.ViewModel
         {
             _currentFolder.Products.Add(new Product() {Name = "Gay", Cost = 300, StockNum = 1});
             _currentFolder.Name = "Test1";
-                        
-            CurrentWarehouse.Folders.Add(CurrentFolder);
+            _currentFolder.Parent = CurrentWarehouse.RootFolder;            
+
+            CurrentWarehouse.RootFolder.SubFolders.Add(CurrentFolder);
             
             Folder subFolder = new Folder(_currentFolder) {Name = "Test2"};
             _currentFolder.SubFolders.Add(subFolder);
 
-            Folder subFolder2 = new Folder() {Name = "Test3"};
-            CurrentWarehouse.Folders.Add(subFolder2);
+            Folder subFolder2 = new Folder(CurrentWarehouse.RootFolder) {Name = "Test3"};
+            CurrentWarehouse.RootFolder.SubFolders.Add(subFolder2);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

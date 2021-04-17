@@ -23,7 +23,7 @@
                 <DataGridTextColumn Header="Цена" Binding="{Binding Cost}" />
             </DataGrid.Columns>
         </DataGrid>
-        <TreeView Margin="0, 25, 0, 0" HorizontalAlignment="Left" Width="233" ItemsSource="{Binding Path=CurrentWarehouse.Folders}">
+        <TreeView Margin="0, 25, 0, 0" HorizontalAlignment="Left" Width="233" ItemsSource="{Binding Path=CurrentWarehouse.RootFolder.SubFolders}">
             <TreeView.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Добавить раздел" Command="{Binding Path=AddRootItemCommand}" />
