@@ -8,11 +8,13 @@
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+
     <Grid>
         <Menu Height="25" VerticalAlignment="Top">
             <MenuItem Header="Файл">
-                <MenuItem Header="Сохранить" Command="{Binding SaveWarehouseCommand}" CommandParameter="{Binding CurrentWarehouse}"></MenuItem>
-                <MenuItem Header="Загрузить" Command="{Binding LoadWarehouseCommand}"></MenuItem>
+                <MenuItem Header="Сохранить" Command="{Binding SaveWarehouseCommand}"
+                          CommandParameter="{Binding CurrentWarehouse}" />
+                <MenuItem Header="Загрузить" Command="{Binding LoadWarehouseCommand}" />
             </MenuItem>
         </Menu>
         <DataGrid Margin="233,25,0,0" ItemsSource="{Binding Path=CurrentFolder.Products}" AutoGenerateColumns="False">
@@ -23,7 +25,8 @@
                 <DataGridTextColumn Header="Цена" Binding="{Binding Cost}" />
             </DataGrid.Columns>
         </DataGrid>
-        <TreeView Margin="0, 25, 0, 0" HorizontalAlignment="Left" Width="233" ItemsSource="{Binding Path=CurrentWarehouse.RootFolder.SubFolders}">
+        <TreeView Margin="0, 25, 0, 0" HorizontalAlignment="Left" Width="233"
+                  ItemsSource="{Binding Path=CurrentWarehouse.RootFolder.SubFolders}">
             <TreeView.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Добавить раздел" Command="{Binding Path=AddRootItemCommand}" />
@@ -32,10 +35,24 @@
 
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate ItemsSource="{Binding Path=SubFolders}">
-                    <TextBox Style="{StaticResource SelectableTextBlockLikeStyle}" IsReadOnly="False"
-                        Text="{Binding Name}" Tag="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
-                        <TextBox.ContextMenu>
-                            <ContextMenu Tag="{Binding Path=PlacementTarget.Tag, RelativeSource={RelativeSource Self}}">
+                    <StackPanel Orientation="Horizontal" Background="Transparent"
+                                ContextMenu="{DynamicResource treeItemContextMenu}"
+                                Tag="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
+                        <TextBox Style="{StaticResource SelectableTextBlockLikeStyle}" IsReadOnly="False"
+                                 ContextMenu="{DynamicResource treeItemContextMenu}"
+                                 Tag="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                                 Text="{Binding Name}" />
+                        <TextBlock Text="Код сортировки:"
+                                   ContextMenu="{DynamicResource treeItemContextMenu}"
+                                   Tag="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                                   Margin="10, 0, 0, 0" />
+                        <TextBox Style="{StaticResource SelectableTextBlockLikeStyle}" IsReadOnly="False"
+                                 ContextMenu="{DynamicResource treeItemContextMenu}"
+                                 Tag="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                                 Text="{Binding Priority}" Margin="10, 0, 0, 0" />
+                        <StackPanel.Resources>
+                            <ContextMenu x:Key="treeItemContextMenu"
+                                         Tag="{Binding Path=PlacementTarget.Tag, RelativeSource={RelativeSource Self}}">
                                 <MenuItem Header="Добавить раздел"
                                           Command="{Binding Path=PlacementTarget.Tag.DataContext.AddTreeItemCommand, 
                                     RelativeSource={RelativeSource AncestorType=ContextMenu}}"
@@ -45,7 +62,7 @@
                                         RelativeSource={RelativeSource AncestorType=ContextMenu}}"
                                           CommandParameter="{Binding}" />
                             </ContextMenu>
-                        </TextBox.ContextMenu>
+                        </StackPanel.Resources>
                         <i:Interaction.Triggers>
                             <i:EventTrigger EventName="PreviewMouseLeftButtonUp">
                                 <cmd:EventToCommand
@@ -54,7 +71,7 @@
                                     CommandParameter="{Binding}" />
                             </i:EventTrigger>
                         </i:Interaction.Triggers>
-                    </TextBox>
+                    </StackPanel>
                 </HierarchicalDataTemplate>
             </TreeView.ItemTemplate>
         </TreeView>
