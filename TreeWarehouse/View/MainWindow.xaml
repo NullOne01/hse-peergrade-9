@@ -16,6 +16,10 @@
                           CommandParameter="{Binding CurrentWarehouse}" />
                 <MenuItem Header="Загрузить" Command="{Binding LoadWarehouseCommand}" />
             </MenuItem>
+            <MenuItem Header="Отчёт">
+                <MenuItem Header="Сохранить CSV" Command="{Binding SaveReportCSVCommand}"
+                          CommandParameter="{Binding CurrentWarehouse}" />
+            </MenuItem>
         </Menu>
         <DataGrid Margin="233,25,0,0" ItemsSource="{Binding Path=CurrentFolder.Products}" AutoGenerateColumns="False">
             <DataGrid.Columns>
@@ -23,6 +27,8 @@
                 <DataGridTextColumn Header="Артикул" Binding="{Binding VendorCode}" />
                 <DataGridTextColumn Header="Количество" Binding="{Binding StockNum}" />
                 <DataGridTextColumn Header="Цена" Binding="{Binding Cost}" />
+                <DataGridTextColumn Header="Сколько требуется" Binding="{Binding NeedStockNum}" />
+                <DataGridTextColumn Header="Описание" Binding="{Binding Description}" />
             </DataGrid.Columns>
         </DataGrid>
         <TreeView Margin="0, 25, 0, 0" HorizontalAlignment="Left" Width="233"

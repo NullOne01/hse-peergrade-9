@@ -90,6 +90,18 @@ namespace TreeWarehouse.Model
             }
         }
 
+        public string GetPath() {
+            string path = Name;
+            Folder nextParent = Parent;
+            // Until root folder is found.
+            while (nextParent.Parent != null) {
+                path = nextParent.Name + "/" + path;
+                nextParent = nextParent.Parent;
+            }
+
+            return path;
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)

@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
+using TreeWarehouse.Model.Report;
 
 namespace TreeWarehouse.Model
 {
@@ -33,6 +34,29 @@ namespace TreeWarehouse.Model
 
             // If folder is in root (no parent), then delete from root.
             return RootFolder.SubFolders.Remove(folderToRemove);
+        }
+
+        public List<ReportCSV> GetReportList() {
+            List<ReportCSV> resultList = new List<ReportCSV>();
+
+            var bfsQueue = new Queue<Folder>();
+            bfsQueue.Enqueue(RootFolder);
+
+            while (bfsQueue.Count > 0) {
+                Folder newFolder = bfsQueue.Dequeue();
+                foreach (var product in newFolder.Products) {
+                    if (!product.IsStockEnough) {
+                        ReportCSV newReportLine = new ReportCSV(newFolder.GetPath(), product);
+                        resultList.Add(newReportLine);
+                    }
+                }
+
+                foreach (var newSubFolder in newFolder.SubFolders) {
+                    bfsQueue.Enqueue(newSubFolder);
+                }
+            }
+
+            return resultList;
         }
 
         /*public bool ForceDeleteFolder(Folder folderToRemove)

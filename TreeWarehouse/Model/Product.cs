@@ -83,6 +83,7 @@ namespace TreeWarehouse.Model
             }
         }
 
+        [DataMember]
         public ProductImage Image
         {
             get => _image;
@@ -92,6 +93,8 @@ namespace TreeWarehouse.Model
                 OnPropertyChanged(nameof(Image));
             }
         }
+
+        public bool IsStockEnough => StockNum >= NeedStockNum;
 
         public event PropertyChangedEventHandler PropertyChanged;
 

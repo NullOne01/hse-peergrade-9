@@ -99,5 +99,26 @@ namespace TreeWarehouse.ViewModel
                 return _loadWarehouseCommand;
             }
         }
+
+        private RelayCommand<Warehouse> _saveReportCSVCommand;
+
+        public RelayCommand<Warehouse> SaveReportCSVCommand {
+            get {
+                _saveReportCSVCommand = new RelayCommand<Warehouse>(
+                    (warehouse) => {
+                        try {
+                            SaveFileDialog saveFileDialog = new SaveFileDialog();
+                            saveFileDialog.Filter = "csv file(*.csv)|*.csv";
+                            if ((bool)saveFileDialog.ShowDialog()) {
+                                warehouse.SaveReportCSV(saveFileDialog.FileName);
+                            }
+                        }
+                        catch {
+                            MessageBox.Show("Не получилось сохранить :c");
+                        }
+                    });
+                return _saveReportCSVCommand;
+            }
+        }
     }
 }
