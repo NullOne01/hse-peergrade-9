@@ -44,9 +44,11 @@ namespace TreeWarehouse.Model
 
             while (bfsQueue.Count > 0) {
                 Folder newFolder = bfsQueue.Dequeue();
+                string folderPath = newFolder.GetPath();
+
                 foreach (var product in newFolder.Products) {
                     if (!product.IsStockEnough) {
-                        ReportCSV newReportLine = new ReportCSV(newFolder.GetPath(), product);
+                        ReportCSV newReportLine = new ReportCSV(folderPath, product);
                         resultList.Add(newReportLine);
                     }
                 }
