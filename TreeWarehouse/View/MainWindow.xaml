@@ -5,10 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TreeWarehouse"
         xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Platform"
-        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" xmlns:local1="clr-namespace:TreeWarehouse.View.Converters"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-
+    <Window.Resources>
+        <local1:PriorityTreeSortConverter x:Key="priorityTreeSortConverter" />
+    </Window.Resources>
     <Grid>
         <Menu Height="25" VerticalAlignment="Top">
             <MenuItem Header="Файл">
@@ -32,7 +34,22 @@
             </DataGrid.Columns>
         </DataGrid>
         <TreeView Margin="0, 25, 0, 0" HorizontalAlignment="Left" Width="233"
-                  ItemsSource="{Binding Path=CurrentWarehouse.RootFolder.SubFolders}">
+                   ItemsSource="{Binding Path=CurrentWarehouse.RootFolder.SubFolders, 
+                    Converter={StaticResource priorityTreeSortConverter}, 
+                    ConverterParameter=Priority}">
+            <!--
+            ItemsSource="{Binding Path=CurrentWarehouse.RootFolder.SubFolders}"
+            -->
+
+            <!--
+            <TreeView.ItemsSource>
+                <MultiBinding Converter="{StaticResource treeSortConverter}">
+                    <Binding Path="CurrentWarehouse.RootFolder.SubFolders" />
+                    <Binding Source="Priority" />
+                </MultiBinding>
+            </TreeView.ItemsSource>
+            -->
+            
             <TreeView.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Добавить раздел" Command="{Binding Path=AddRootItemCommand}" />
@@ -40,14 +57,28 @@
             </TreeView.ContextMenu>
 
             <TreeView.ItemTemplate>
-                <HierarchicalDataTemplate ItemsSource="{Binding Path=SubFolders}">
+                <HierarchicalDataTemplate ItemsSource="{Binding Path=SubFolders, 
+                    Converter={StaticResource priorityTreeSortConverter}}">
+                    <!--
+                    ItemsSource="{Binding Path=SubFolders}"
+                    -->
+                    
+                    <!--
+                    <HierarchicalDataTemplate.ItemsSource>
+                        <MultiBinding Converter="{StaticResource treeSortConverter}" UpdateSourceTrigger="PropertyChanged">
+                            <Binding Path="SubFolders" />
+                            <Binding Source="Priority" />
+                        </MultiBinding>
+                    </HierarchicalDataTemplate.ItemsSource>
+                    -->
+                    
                     <StackPanel Orientation="Horizontal" Background="Transparent"
                                 ContextMenu="{DynamicResource treeItemContextMenu}"
                                 Tag="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
                         <TextBox Style="{StaticResource SelectableTextBlockLikeStyle}" IsReadOnly="False"
                                  ContextMenu="{DynamicResource treeItemContextMenu}"
                                  Tag="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
-                                 Text="{Binding Name}" />
+                                 Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
                         <TextBlock Text="Код сортировки:"
                                    ContextMenu="{DynamicResource treeItemContextMenu}"
                                    Tag="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
@@ -55,7 +86,7 @@
                         <TextBox Style="{StaticResource SelectableTextBlockLikeStyle}" IsReadOnly="False"
                                  ContextMenu="{DynamicResource treeItemContextMenu}"
                                  Tag="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
-                                 Text="{Binding Priority}" Margin="10, 0, 0, 0" />
+                                 Text="{Binding Priority, UpdateSourceTrigger=PropertyChanged}" Margin="10, 0, 0, 0" />
                         <StackPanel.Resources>
                             <ContextMenu x:Key="treeItemContextMenu"
                                          Tag="{Binding Path=PlacementTarget.Tag, RelativeSource={RelativeSource Self}}">

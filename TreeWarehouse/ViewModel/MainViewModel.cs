@@ -36,7 +36,8 @@ namespace TreeWarehouse.ViewModel
         {
             _currentFolder.Products.Add(new Product() {Name = "Gay", Cost = 300, StockNum = 1});
             _currentFolder.Name = "Test1";
-            _currentFolder.Parent = CurrentWarehouse.RootFolder;            
+            _currentFolder.Parent = CurrentWarehouse.RootFolder;
+            _currentFolder.Priority = 1;
 
             CurrentWarehouse.RootFolder.SubFolders.Add(CurrentFolder);
             
@@ -44,6 +45,7 @@ namespace TreeWarehouse.ViewModel
             _currentFolder.SubFolders.Add(subFolder);
 
             Folder subFolder2 = new Folder(CurrentWarehouse.RootFolder) {Name = "Test3"};
+            //subFolder2.Priority = 2;
             CurrentWarehouse.RootFolder.SubFolders.Add(subFolder2);
         }
 
