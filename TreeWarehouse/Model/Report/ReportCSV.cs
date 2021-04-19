@@ -3,13 +3,11 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace TreeWarehouse.Model.Report
-{
+namespace TreeWarehouse.Model.Report {
     /// <summary>
     /// Object for serializing CSV Report.
     /// </summary>
-    public class ReportCSV
-    {
+    public class ReportCSV {
         string _path;
         string _vendorCode;
         string _name;
@@ -30,12 +28,27 @@ namespace TreeWarehouse.Model.Report
         }
 
         [Name("путь")]
-        public string Path { get => _path; set => _path = value; }
+        public string Path {
+            get => _path;
+            set => _path = value;
+        }
+
         [Name("артикул")]
-        public string VendorCode { get => _vendorCode; set => _vendorCode = value; }
+        public string VendorCode {
+            get => _vendorCode;
+            set => _vendorCode = value;
+        }
+
         [Name("название товара")]
-        public string Name { get => _name; set => _name = value; }
+        public string Name {
+            get => _name;
+            set => _name = value;
+        }
+
         [Name("количество на складе")]
-        public uint StockNum { get => _stockNum; set => _stockNum = value; }
+        public uint StockNum {
+            get => _stockNum;
+            set => _stockNum = value;
+        }
     }
 }

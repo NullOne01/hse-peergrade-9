@@ -4,10 +4,8 @@ using System.Text;
 using GalaSoft.MvvmLight.CommandWpf;
 using TreeWarehouse.Model;
 
-namespace TreeWarehouse.ViewModel
-{
-    public partial class RandomViewModel
-    {
+namespace TreeWarehouse.ViewModel {
+    public partial class RandomViewModel {
         private RelayCommand _randomizeWarehouseCommand;
 
         public RelayCommand RandomizeWarehouseCommand {
@@ -40,8 +38,8 @@ namespace TreeWarehouse.ViewModel
             while (productsNumToAdd > 0) {
                 // randomFolder without rootFolder.
                 int randomFolderNum = random.Next(1, foldersToAdd.Count);
-                int productsNumForFolder = random.Next(0, (int)productsNumToAdd + 1);
-                productsNumToAdd -= (uint)productsNumForFolder;
+                int productsNumForFolder = random.Next(0, (int) productsNumToAdd + 1);
+                productsNumToAdd -= (uint) productsNumForFolder;
 
                 for (int i = 0; i < productsNumForFolder; i++) {
                     Product newProduct = Product.CreateRandomProduct(random);

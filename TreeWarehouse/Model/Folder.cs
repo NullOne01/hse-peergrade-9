@@ -8,58 +8,48 @@ using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using TreeWarehouse.ViewModel.Utilities;
 
-namespace TreeWarehouse.Model
-{
+namespace TreeWarehouse.Model {
     [DataContract(IsReference = true)]
-    public class Folder : INotifyPropertyChanged
-    {
+    public class Folder : INotifyPropertyChanged {
         private ObservableCollection<Product> _products = new ObservableCollection<Product>();
         private ObservableCollection<Folder> _subFolders = new ObservableCollection<Folder>();
         private string _name;
         private Folder _parent;
         private int _priority;
 
-        public Folder(Folder parent)
-        {
+        public Folder(Folder parent) {
             Parent = parent;
             OnPropertyChanged(nameof(SubProducts));
         }
 
         // Empty constructor for serialization.
-        public Folder()
-        {
+        public Folder() {
             Parent = null;
             OnPropertyChanged(nameof(SubProducts));
         }
 
         [DataMember]
-        public Folder Parent
-        {
+        public Folder Parent {
             get => _parent;
-            set
-            {
+            set {
                 _parent = value;
                 OnPropertyChanged(nameof(Parent));
             }
         }
 
         [DataMember]
-        public ObservableCollection<Product> Products
-        {
+        public ObservableCollection<Product> Products {
             get => _products;
-            set
-            {
+            set {
                 _products = value;
                 OnPropertyChanged(nameof(Products));
             }
         }
 
         [DataMember]
-        public ObservableCollection<Folder> SubFolders
-        {
+        public ObservableCollection<Folder> SubFolders {
             get => _subFolders;
-            set
-            {
+            set {
                 _subFolders = value;
                 OnPropertyChanged(nameof(SubFolders));
                 // Update SubProducts property if SubFolders were changed.
@@ -68,14 +58,11 @@ namespace TreeWarehouse.Model
         }
 
         [DataMember]
-        public string Name
-        {
+        public string Name {
             get => _name;
-            set
-            {
+            set {
                 // Recursive adding character "1" until Name is unique in the parent folder.
-                if (Parent != null && Parent.SubFolders.Any((folder) => folder.Name == value))
-                {
+                if (Parent != null && Parent.SubFolders.Any((folder) => folder.Name == value)) {
                     Name = value + "1";
                     OnPropertyChanged(nameof(Name));
                     return;
@@ -87,11 +74,9 @@ namespace TreeWarehouse.Model
         }
 
         [DataMember]
-        public int Priority
-        {
+        public int Priority {
             get => _priority;
-            set
-            {
+            set {
                 _priority = value;
                 OnPropertyChanged(nameof(Priority));
             }
@@ -100,28 +85,22 @@ namespace TreeWarehouse.Model
         /// <summary>
         /// Get collection of products which are contained in SubFolders.
         /// </summary>
-        public ObservableCollection<Product> SubProducts
-        {
-            get
-            {
+        public ObservableCollection<Product> SubProducts {
+            get {
                 ObservableCollection<Product> resProducts = new ObservableCollection<Product>();
                 // Using BFS.
                 var bfsQueue = new Queue<Folder>();
                 bfsQueue.Enqueue(this);
 
-                while (bfsQueue.Count > 0)
-                {
+                while (bfsQueue.Count > 0) {
                     Folder newFolder = bfsQueue.Dequeue();
-                    if (newFolder != this)
-                    {
-                        foreach (var newProduct in newFolder.Products)
-                        {
+                    if (newFolder != this) {
+                        foreach (var newProduct in newFolder.Products) {
                             resProducts.Add(newProduct);
                         }
                     }
 
-                    foreach (var newSubFolder in newFolder.SubFolders)
-                    {
+                    foreach (var newSubFolder in newFolder.SubFolders) {
                         bfsQueue.Enqueue(newSubFolder);
                     }
                 }
@@ -129,15 +108,14 @@ namespace TreeWarehouse.Model
                 return resProducts;
             }
         }
-        
+
         /// <summary>
         /// Generates Folder with random property values.
         /// </summary>
         /// <param name="random"> Random object. </param>
         /// <param name="parent"> Parent to assign to. </param>
         /// <returns> Randomized folder. </returns>
-        public static Folder CreateRandomFolder(Random random, Folder parent)
-        {
+        public static Folder CreateRandomFolder(Random random, Folder parent) {
             return new Folder(parent)
             {
                 Name = random.RandomString(5),
@@ -163,8 +141,7 @@ namespace TreeWarehouse.Model
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }

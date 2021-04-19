@@ -4,11 +4,9 @@ using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using TreeWarehouse.ViewModel.Utilities;
 
-namespace TreeWarehouse.Model
-{
+namespace TreeWarehouse.Model {
     [DataContract]
-    public class Product : INotifyPropertyChanged
-    {
+    public class Product : INotifyPropertyChanged {
         private string _name;
         private string _vendorCode;
         private uint _cost;
@@ -22,8 +20,7 @@ namespace TreeWarehouse.Model
         /// </summary>
         /// <param name="random"> Random object. </param>
         /// <returns> Randomized product. </returns>
-        public static Product CreateRandomProduct(Random random)
-        {
+        public static Product CreateRandomProduct(Random random) {
             return new Product()
             {
                 Name = random.RandomString(10),
@@ -34,57 +31,47 @@ namespace TreeWarehouse.Model
                 Description = random.RandomString(15)
             };
         }
-        
+
         [DataMember]
-        public string Name
-        {
+        public string Name {
             get => _name;
-            set
-            {
+            set {
                 _name = value;
                 OnPropertyChanged(nameof(Name));
             }
         }
 
         [DataMember]
-        public string VendorCode
-        {
+        public string VendorCode {
             get => _vendorCode;
-            set
-            {
+            set {
                 _vendorCode = value;
                 OnPropertyChanged(nameof(VendorCode));
             }
         }
 
         [DataMember]
-        public uint Cost
-        {
+        public uint Cost {
             get => _cost;
-            set
-            {
+            set {
                 _cost = value;
                 OnPropertyChanged(nameof(Cost));
             }
         }
 
         [DataMember]
-        public uint StockNum
-        {
+        public uint StockNum {
             get => _stockNum;
-            set
-            {
+            set {
                 _stockNum = value;
                 OnPropertyChanged(nameof(StockNum));
             }
         }
 
         [DataMember]
-        public uint NeedStockNum
-        {
+        public uint NeedStockNum {
             get => _needStockNum;
-            set
-            {
+            set {
                 _needStockNum = value;
                 OnPropertyChanged(nameof(NeedStockNum));
             }
@@ -92,11 +79,9 @@ namespace TreeWarehouse.Model
 
         // Additional functionality.
         [DataMember]
-        public string Description
-        {
+        public string Description {
             get => _description;
-            set
-            {
+            set {
                 _description = value;
                 OnPropertyChanged(nameof(Description));
             }
@@ -104,11 +89,9 @@ namespace TreeWarehouse.Model
 
         // Additional functionality.
         [DataMember]
-        public ProductImage Image
-        {
+        public ProductImage Image {
             get => _image;
-            set
-            {
+            set {
                 _image = value;
                 OnPropertyChanged(nameof(Image));
             }
@@ -118,8 +101,7 @@ namespace TreeWarehouse.Model
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }

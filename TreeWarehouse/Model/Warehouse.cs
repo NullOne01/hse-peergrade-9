@@ -7,19 +7,15 @@ using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
 using TreeWarehouse.Model.Report;
 
-namespace TreeWarehouse.Model
-{
-    [DataContract(IsReference=true)]
-    public class Warehouse : INotifyPropertyChanged
-    {
+namespace TreeWarehouse.Model {
+    [DataContract(IsReference = true)]
+    public class Warehouse : INotifyPropertyChanged {
         private Folder _rootFolder = new Folder();
 
         [DataMember]
-        public Folder RootFolder
-        {
+        public Folder RootFolder {
             get => _rootFolder;
-            set
-            {
+            set {
                 _rootFolder = value;
                 OnPropertyChanged(nameof(RootFolder));
             }
@@ -30,10 +26,8 @@ namespace TreeWarehouse.Model
         /// </summary>
         /// <param name="folderToRemove">Folder which will be removed. </param>
         /// <returns> True if folder was removed. </returns>
-        public bool ForceDeleteFolder(Folder folderToRemove)
-        {
-            if (folderToRemove.Parent != null)
-            {
+        public bool ForceDeleteFolder(Folder folderToRemove) {
+            if (folderToRemove.Parent != null) {
                 return folderToRemove.Parent.SubFolders.Remove(folderToRemove);
             }
 
@@ -71,8 +65,8 @@ namespace TreeWarehouse.Model
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
+
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }

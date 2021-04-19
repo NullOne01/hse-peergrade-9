@@ -7,10 +7,8 @@ using System.Text;
 using TreeWarehouse.Model;
 using TreeWarehouse.Model.Report;
 
-namespace TreeWarehouse.ViewModel.Utilities
-{
-    public static class WarehouseCSVUtility
-    {
+namespace TreeWarehouse.ViewModel.Utilities {
+    public static class WarehouseCSVUtility {
         /// <summary>
         /// Generate and save CSV report into path. Exceptions are possible.
         /// </summary>

@@ -5,23 +5,19 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using TreeWarehouse.Model;
 
-namespace TreeWarehouse.ViewModel
-{
-    public partial class RandomViewModel : INotifyPropertyChanged
-    {
+namespace TreeWarehouse.ViewModel {
+    public partial class RandomViewModel : INotifyPropertyChanged {
         private MainViewModel _mainViewModel;
         private uint _productsNum;
         private uint _foldersNum = 1;
 
-        public RandomViewModel(MainViewModel mainViewModel)
-        {
+        public RandomViewModel(MainViewModel mainViewModel) {
             MainViewModel = mainViewModel;
         }
 
         public MainViewModel MainViewModel {
             get => _mainViewModel;
-            set
-            {
+            set {
                 _mainViewModel = value;
                 OnPropertyChanged(nameof(MainViewModel));
             }
@@ -30,11 +26,9 @@ namespace TreeWarehouse.ViewModel
         /// <summary>
         /// Number of products to randomly generate.
         /// </summary>
-        public uint ProductsNum
-        {
+        public uint ProductsNum {
             get => _productsNum;
-            set
-            {
+            set {
                 _productsNum = value;
                 OnPropertyChanged(nameof(ProductsNum));
             }
@@ -43,11 +37,9 @@ namespace TreeWarehouse.ViewModel
         /// <summary>
         /// Number of folders to randomly generate.
         /// </summary>
-        public uint FoldersNum
-        {
+        public uint FoldersNum {
             get => _foldersNum;
-            set
-            {
+            set {
                 _foldersNum = value;
                 OnPropertyChanged(nameof(FoldersNum));
             }
@@ -55,8 +47,7 @@ namespace TreeWarehouse.ViewModel
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
-        {
+        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null) {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
         }
     }

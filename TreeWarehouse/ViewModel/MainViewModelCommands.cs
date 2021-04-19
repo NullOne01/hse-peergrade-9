@@ -5,10 +5,8 @@ using TreeWarehouse.Model;
 using TreeWarehouse.View;
 using TreeWarehouse.ViewModel.Utilities;
 
-namespace TreeWarehouse.ViewModel
-{
-    public partial class MainViewModel
-    {
+namespace TreeWarehouse.ViewModel {
+    public partial class MainViewModel {
         // File with commands. Commands are used instead of Events in MVVM. \\
 
         private RelayCommand<Folder> _selectTreeItemCommand;
@@ -24,9 +22,8 @@ namespace TreeWarehouse.ViewModel
 
         public RelayCommand<Folder> AddTreeItemCommand {
             get {
-                _addTreeItemCommand = new RelayCommand<Folder>((folder) =>
-                {
-                    folder.SubFolders.Add(new Folder(folder) { Name = "NewFolder" });
+                _addTreeItemCommand = new RelayCommand<Folder>((folder) => {
+                    folder.SubFolders.Add(new Folder(folder) {Name = "NewFolder"});
                 });
                 return _addTreeItemCommand;
             }
@@ -36,9 +33,9 @@ namespace TreeWarehouse.ViewModel
 
         public RelayCommand AddRootItemCommand {
             get {
-                _addRootItemCommand = new RelayCommand(() =>
-                {
-                    CurrentWarehouse.RootFolder.SubFolders.Add(new Folder(CurrentWarehouse.RootFolder) { Name = "NewRootFolder" });
+                _addRootItemCommand = new RelayCommand(() => {
+                    CurrentWarehouse.RootFolder.SubFolders.Add(new Folder(CurrentWarehouse.RootFolder)
+                        {Name = "NewRootFolder"});
                 });
                 return _addRootItemCommand;
             }
@@ -62,12 +59,11 @@ namespace TreeWarehouse.ViewModel
             get {
                 // Dialogues are bad for MVVM here, but no shit's given.
                 _saveWarehouseCommand = new RelayCommand<Warehouse>(
-                    (warehouse) =>
-                    {
+                    (warehouse) => {
                         try {
                             SaveFileDialog saveFileDialog = new SaveFileDialog();
                             saveFileDialog.Filter = "xml file(*.xml)|*.xml";
-                            if ((bool)saveFileDialog.ShowDialog()) {
+                            if ((bool) saveFileDialog.ShowDialog()) {
                                 warehouse.Save(saveFileDialog.FileName);
                             }
                         }
@@ -85,12 +81,11 @@ namespace TreeWarehouse.ViewModel
             get {
                 // Dialogues are bad for MVVM here, but no shit's given.
                 _loadWarehouseCommand = new RelayCommand(
-                    () =>
-                    {
+                    () => {
                         try {
                             OpenFileDialog openFileDialog = new OpenFileDialog();
                             openFileDialog.Filter = "xml file(*.xml)|*.xml";
-                            if ((bool)openFileDialog.ShowDialog()) {
+                            if ((bool) openFileDialog.ShowDialog()) {
                                 CurrentWarehouse = SaveLoadWarehouse.Load(openFileDialog.FileName);
                             }
                         }
@@ -108,12 +103,11 @@ namespace TreeWarehouse.ViewModel
             get {
                 // Dialogues are bad for MVVM here, but no shit's given.
                 _saveReportCSVCommand = new RelayCommand<Warehouse>(
-                    (warehouse) =>
-                    {
+                    (warehouse) => {
                         try {
                             SaveFileDialog saveFileDialog = new SaveFileDialog();
                             saveFileDialog.Filter = "csv file(*.csv)|*.csv";
-                            if ((bool)saveFileDialog.ShowDialog()) {
+                            if ((bool) saveFileDialog.ShowDialog()) {
                                 warehouse.SaveReportCSV(saveFileDialog.FileName);
                             }
                         }
@@ -130,8 +124,7 @@ namespace TreeWarehouse.ViewModel
         public RelayCommand<Warehouse> OnAppCloseCommand {
             get {
                 _onAppCloseCommand = new RelayCommand<Warehouse>(
-                    (warehouse) =>
-                    {
+                    (warehouse) => {
                         try {
                             warehouse.Save("last_session.xml");
                         }
@@ -148,8 +141,7 @@ namespace TreeWarehouse.ViewModel
         public RelayCommand OnAppLoadCommand {
             get {
                 _onAppLoadCommand = new RelayCommand(
-                    () =>
-                    {
+                    () => {
                         try {
                             CurrentWarehouse = SaveLoadWarehouse.Load("last_session.xml");
                         }
@@ -161,14 +153,13 @@ namespace TreeWarehouse.ViewModel
                 return _onAppLoadCommand;
             }
         }
-        
+
         private RelayCommand _openRandomWindowCommand;
 
         public RelayCommand OpenRandomWindowCommand {
             get {
                 _openRandomWindowCommand = new RelayCommand(
-                    () =>
-                    {
+                    () => {
                         RandomWindow randomWindow = new RandomWindow(this);
                         randomWindow.ShowDialog();
                     });
@@ -181,8 +172,7 @@ namespace TreeWarehouse.ViewModel
         public RelayCommand OpenHelpWindowCommand {
             get {
                 _openHelpWindowCommand = new RelayCommand(
-                    () =>
-                    {
+                    () => {
                         HelpWindow helpWindow = new HelpWindow();
                         helpWindow.Show();
                     });

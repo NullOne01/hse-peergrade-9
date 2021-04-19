@@ -1,7 +1,5 @@
-﻿namespace TreeWarehouse.Model
-{
-    public class ProductImage
-    {
+﻿namespace TreeWarehouse.Model {
+    public class ProductImage {
         // Additional functionality.
     }
 }

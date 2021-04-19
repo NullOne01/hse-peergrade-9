@@ -6,13 +6,11 @@ using System.Text;
 using System.Windows.Data;
 using TreeWarehouse.Model;
 
-namespace TreeWarehouse.View.Converters
-{
+namespace TreeWarehouse.View.Converters {
     /// <summary>
     /// Converter for auto-sorting treeView by Priority and Name properties.
     /// </summary>
-    class PriorityTreeSortConverter : IValueConverter
-    {
+    class PriorityTreeSortConverter : IValueConverter {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
             System.Collections.IList collection = value as System.Collections.IList;
             ListCollectionView view = new ListCollectionView(collection);
