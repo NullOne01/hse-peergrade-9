@@ -61,6 +61,10 @@ namespace TreeWarehouse.Model
             return resultList;
         }
 
+        public void FullClear() {
+            RootFolder = new Folder();
+        }
+
         /*public bool ForceDeleteFolder(Folder folderToRemove)
         {
             if (Folders.Count <= 0)

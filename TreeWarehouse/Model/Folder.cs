@@ -5,7 +5,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
-using TreeWarehouse.Annotations;
+using TreeWarehouse.ViewModel.Utilities;
 
 namespace TreeWarehouse.Model
 {
@@ -88,6 +88,15 @@ namespace TreeWarehouse.Model
                 _priority = value;
                 OnPropertyChanged(nameof(Priority));
             }
+        }
+        
+        public static Folder CreateRandomFolder(Random random, Folder parent)
+        {
+            return new Folder(parent)
+            {
+                Name = random.RandomString(5),
+                Priority = random.Next(-5, 6)
+            };
         }
 
         public string GetPath() {

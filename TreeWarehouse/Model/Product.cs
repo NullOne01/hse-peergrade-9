@@ -2,7 +2,7 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Runtime.Serialization;
-using TreeWarehouse.Annotations;
+using TreeWarehouse.ViewModel.Utilities;
 
 namespace TreeWarehouse.Model
 {
@@ -17,6 +17,19 @@ namespace TreeWarehouse.Model
         private string _description;
         private ProductImage _image;
 
+        public static Product CreateRandomProduct(Random random)
+        {
+            return new Product()
+            {
+                Name = random.RandomString(10),
+                VendorCode = random.RandomString(5),
+                Cost = (uint) random.Next(1, 101),
+                StockNum = (uint) random.Next(1, 101),
+                NeedStockNum = (uint) random.Next(1, 101),
+                Description = random.RandomString(15)
+            };
+        }
+        
         [DataMember]
         public string Name
         {

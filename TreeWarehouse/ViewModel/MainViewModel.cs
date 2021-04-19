@@ -34,17 +34,21 @@ namespace TreeWarehouse.ViewModel
 
         public MainViewModel()
         {
-            _currentFolder.Products.Add(new Product() {Name = "Gay", Cost = 300, StockNum = 1});
+
+        }
+
+        private void LoadDebugValues() {
+            _currentFolder.Products.Add(new Product() { Name = "Gay", Cost = 300, StockNum = 1 });
             _currentFolder.Name = "Test1";
             _currentFolder.Parent = CurrentWarehouse.RootFolder;
             _currentFolder.Priority = 1;
 
             CurrentWarehouse.RootFolder.SubFolders.Add(CurrentFolder);
-            
-            Folder subFolder = new Folder(_currentFolder) {Name = "Test2"};
+
+            Folder subFolder = new Folder(_currentFolder) { Name = "Test2" };
             _currentFolder.SubFolders.Add(subFolder);
 
-            Folder subFolder2 = new Folder(CurrentWarehouse.RootFolder) {Name = "Test3"};
+            Folder subFolder2 = new Folder(CurrentWarehouse.RootFolder) { Name = "Test3" };
             //subFolder2.Priority = 2;
             CurrentWarehouse.RootFolder.SubFolders.Add(subFolder2);
         }
