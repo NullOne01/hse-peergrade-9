@@ -21,6 +21,15 @@
 
     <Window.Resources>
         <local1:PriorityTreeSortConverter x:Key="priorityTreeSortConverter" />
+        <DataTemplate x:Key="DataTemplateStockNum">
+            <xctk:IntegerUpDown Value="{Binding StockNum, UpdateSourceTrigger=PropertyChanged}"/>
+        </DataTemplate>
+        <DataTemplate x:Key="DataTemplateCost">
+            <xctk:IntegerUpDown Value="{Binding Cost, UpdateSourceTrigger=PropertyChanged}"/>
+        </DataTemplate>
+        <DataTemplate x:Key="DataTemplateNeedStockNum">
+            <xctk:IntegerUpDown Value="{Binding NeedStockNum, UpdateSourceTrigger=PropertyChanged}"/>
+        </DataTemplate>
     </Window.Resources>
     <Grid>
         <Grid.ColumnDefinitions>
@@ -44,33 +53,43 @@
             </MenuItem>
         </Menu>
         <ScrollViewer Grid.Column="2" Margin="0,25,0,0">
-        <StackPanel>
-            <Label Content="Товары в разделе:" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <DataGrid ItemsSource="{Binding Path=CurrentFolder.Products}" 
+            <StackPanel>
+                <Label Content="Товары в разделе:" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <DataGrid ItemsSource="{Binding Path=CurrentFolder.Products}" 
                   AutoGenerateColumns="False" >
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Название товара" Binding="{Binding Name}" />
-                    <DataGridTextColumn Header="Артикул" Binding="{Binding VendorCode}" />
-                    <DataGridTextColumn Header="Количество" Binding="{Binding StockNum}" />
-                    <DataGridTextColumn Header="Цена" Binding="{Binding Cost}" />
-                    <DataGridTextColumn Header="Сколько требуется" Binding="{Binding NeedStockNum}" />
-                    <DataGridTextColumn Header="Описание" Binding="{Binding Description}" />
-                </DataGrid.Columns>
-            </DataGrid>
-            <Label Content="Товары в подразделах:" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,25,0,0"/>
-            <DataGrid ItemsSource="{Binding Path=CurrentFolder.SubProducts}" 
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Название товара" Binding="{Binding Name}" />
+                        <DataGridTextColumn Header="Артикул" Binding="{Binding VendorCode}" />
+                        <DataGridTemplateColumn Header="Количество" 
+                                                CellTemplate="{StaticResource DataTemplateStockNum}">
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Цена" 
+                                                CellTemplate="{StaticResource DataTemplateCost}">
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Сколько требуется"
+                                                CellTemplate="{StaticResource DataTemplateNeedStockNum}"/>
+                        <DataGridTextColumn Header="Описание" Binding="{Binding Description}" />
+                    </DataGrid.Columns>
+                </DataGrid>
+                <Label Content="Товары в подразделах:" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,25,0,0"/>
+                <DataGrid ItemsSource="{Binding Path=CurrentFolder.SubProducts}" 
                   AutoGenerateColumns="False"
                   CanUserAddRows="False" CanUserDeleteRows="False">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Название товара" Binding="{Binding Name}" />
-                    <DataGridTextColumn Header="Артикул" Binding="{Binding VendorCode}" />
-                    <DataGridTextColumn Header="Количество" Binding="{Binding StockNum}" />
-                    <DataGridTextColumn Header="Цена" Binding="{Binding Cost}" />
-                    <DataGridTextColumn Header="Сколько требуется" Binding="{Binding NeedStockNum}" />
-                    <DataGridTextColumn Header="Описание" Binding="{Binding Description}" />
-                </DataGrid.Columns>
-            </DataGrid>
-        </StackPanel>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Название товара" Binding="{Binding Name}" />
+                        <DataGridTextColumn Header="Артикул" Binding="{Binding VendorCode}" />
+                        <DataGridTemplateColumn Header="Количество" 
+                                                CellTemplate="{StaticResource DataTemplateStockNum}">
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Цена" 
+                                                CellTemplate="{StaticResource DataTemplateCost}">
+                        </DataGridTemplateColumn>
+                        <DataGridTemplateColumn Header="Сколько требуется"
+                                                CellTemplate="{StaticResource DataTemplateNeedStockNum}"/>
+                        <DataGridTextColumn Header="Описание" Binding="{Binding Description}" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
         </ScrollViewer>
         <GridSplitter Grid.Column="1" ShowsPreview="False" Width="3"
         HorizontalAlignment="Center" VerticalAlignment="Stretch" />
