@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -21,11 +22,14 @@ namespace TreeWarehouse.Model
         public Folder(Folder parent)
         {
             Parent = parent;
+            OnPropertyChanged(nameof(SubProducts));
         }
 
+        // Empty constructor for serialization.
         public Folder()
         {
             Parent = null;
+            OnPropertyChanged(nameof(SubProducts));
         }
 
         [DataMember]
@@ -58,6 +62,7 @@ namespace TreeWarehouse.Model
             {
                 _subFolders = value;
                 OnPropertyChanged(nameof(SubFolders));
+                OnPropertyChanged(nameof(SubProducts));
             }
         }
 
@@ -87,6 +92,35 @@ namespace TreeWarehouse.Model
             {
                 _priority = value;
                 OnPropertyChanged(nameof(Priority));
+            }
+        }
+
+        public ObservableCollection<Product> SubProducts
+        {
+            get
+            {
+                ObservableCollection<Product> resProducts = new ObservableCollection<Product>();
+                var bfsQueue = new Queue<Folder>();
+                bfsQueue.Enqueue(this);
+
+                while (bfsQueue.Count > 0)
+                {
+                    Folder newFolder = bfsQueue.Dequeue();
+                    if (newFolder != this)
+                    {
+                        foreach (var newProduct in newFolder.Products)
+                        {
+                            resProducts.Add(newProduct);
+                        }
+                    }
+
+                    foreach (var newSubFolder in newFolder.SubFolders)
+                    {
+                        bfsQueue.Enqueue(newSubFolder);
+                    }
+                }
+
+                return resProducts;
             }
         }
         
