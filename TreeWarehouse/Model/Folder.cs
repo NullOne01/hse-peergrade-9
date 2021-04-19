@@ -103,7 +103,7 @@ namespace TreeWarehouse.Model
             string path = Name;
             Folder nextParent = Parent;
             // Until root folder is found.
-            while (nextParent.Parent != null) {
+            while (nextParent != null && nextParent.Parent != null) {
                 path = nextParent.Name + "/" + path;
                 nextParent = nextParent.Parent;
             }
