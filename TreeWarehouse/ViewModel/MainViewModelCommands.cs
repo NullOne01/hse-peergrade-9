@@ -11,6 +11,9 @@ namespace TreeWarehouse.ViewModel {
 
         private RelayCommand<Folder> _selectTreeItemCommand;
 
+        /// <summary>
+        /// Command to select folder as CurrentFolder.
+        /// </summary>
         public RelayCommand<Folder> SelectTreeItemCommand {
             get {
                 _selectTreeItemCommand = new RelayCommand<Folder>((folder) => { CurrentFolder = folder; });
@@ -20,6 +23,9 @@ namespace TreeWarehouse.ViewModel {
 
         private RelayCommand<Folder> _addTreeItemCommand;
 
+        /// <summary>
+        /// Command to add folder as child to another folder.
+        /// </summary>
         public RelayCommand<Folder> AddTreeItemCommand {
             get {
                 _addTreeItemCommand = new RelayCommand<Folder>((folder) => {
@@ -31,6 +37,9 @@ namespace TreeWarehouse.ViewModel {
 
         private RelayCommand _addRootItemCommand;
 
+        /// <summary>
+        /// Command to add folder to the root folder.
+        /// </summary>
         public RelayCommand AddRootItemCommand {
             get {
                 _addRootItemCommand = new RelayCommand(() => {
@@ -43,6 +52,9 @@ namespace TreeWarehouse.ViewModel {
 
         private RelayCommand<Folder> _removeTreeItemCommand;
 
+        /// <summary>
+        /// Command to remove folder. Command is working if it is possible.
+        /// </summary>
         public RelayCommand<Folder> RemoveTreeItemCommand {
             get {
                 // Command is checking if we can delete the folder.
@@ -55,6 +67,9 @@ namespace TreeWarehouse.ViewModel {
 
         private RelayCommand<Warehouse> _saveWarehouseCommand;
 
+        /// <summary>
+        /// Command to open SaveFileDialog and save warehouse in XML format.
+        /// </summary>
         public RelayCommand<Warehouse> SaveWarehouseCommand {
             get {
                 // Dialogues are bad for MVVM here, but no shit's given.
@@ -77,6 +92,9 @@ namespace TreeWarehouse.ViewModel {
 
         private RelayCommand _loadWarehouseCommand;
 
+        /// <summary>
+        /// Command to open OpenFileDialog and load warehouse from XML format.
+        /// </summary>
         public RelayCommand LoadWarehouseCommand {
             get {
                 // Dialogues are bad for MVVM here, but no shit's given.
@@ -99,6 +117,9 @@ namespace TreeWarehouse.ViewModel {
 
         private RelayCommand<Warehouse> _saveReportCSVCommand;
 
+        /// <summary>
+        /// Command to open SaveFileDialog and save report in CSV format.
+        /// </summary>
         public RelayCommand<Warehouse> SaveReportCSVCommand {
             get {
                 // Dialogues are bad for MVVM here, but no shit's given.
@@ -121,6 +142,9 @@ namespace TreeWarehouse.ViewModel {
 
         private RelayCommand<Warehouse> _onAppCloseCommand;
 
+        /// <summary>
+        /// Command to save last session, when app is closing.
+        /// </summary>
         public RelayCommand<Warehouse> OnAppCloseCommand {
             get {
                 _onAppCloseCommand = new RelayCommand<Warehouse>(
@@ -138,6 +162,9 @@ namespace TreeWarehouse.ViewModel {
 
         private RelayCommand _onAppLoadCommand;
 
+        /// <summary>
+        /// Command to load last session on program start.
+        /// </summary>
         public RelayCommand OnAppLoadCommand {
             get {
                 _onAppLoadCommand = new RelayCommand(
@@ -156,6 +183,9 @@ namespace TreeWarehouse.ViewModel {
 
         private RelayCommand _openRandomWindowCommand;
 
+        /// <summary>
+        /// Command to open RandomWindow.
+        /// </summary>
         public RelayCommand OpenRandomWindowCommand {
             get {
                 _openRandomWindowCommand = new RelayCommand(
@@ -169,6 +199,9 @@ namespace TreeWarehouse.ViewModel {
 
         private RelayCommand _openHelpWindowCommand;
 
+        /// <summary>
+        /// Command to open HelpWindow.
+        /// </summary>
         public RelayCommand OpenHelpWindowCommand {
             get {
                 _openHelpWindowCommand = new RelayCommand(

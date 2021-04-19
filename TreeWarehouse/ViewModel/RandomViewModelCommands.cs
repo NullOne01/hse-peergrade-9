@@ -8,6 +8,9 @@ namespace TreeWarehouse.ViewModel {
     public partial class RandomViewModel {
         private RelayCommand _randomizeWarehouseCommand;
 
+        /// <summary>
+        /// Command to randomize new Warehouse.
+        /// </summary>
         public RelayCommand RandomizeWarehouseCommand {
             get {
                 _randomizeWarehouseCommand = new RelayCommand(RandomizeWarehouse);
