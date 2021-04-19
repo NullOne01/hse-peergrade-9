@@ -8,7 +8,7 @@
         Title="RandomWindow" Height="300" Width="400" ResizeMode="NoResize">
     <Grid>
         <Label Content="Количество разделов: " Margin="0,0,244,231" Height="26" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="135" />
-        <xctk:IntegerUpDown Height="25" Width="100" Minimum="1" Maximum="100" Value="{Binding Path=FoldersNum}" Margin="0,28,121,0" HorizontalAlignment="Right" VerticalAlignment="Top" />
+        <xctk:IntegerUpDown Height="25" Width="100" Minimum="1" Maximum="100" Value="{Binding Path=FoldersNum}" Margin="0,0,121,231" HorizontalAlignment="Right" VerticalAlignment="Bottom" />
 
         <Label Content="Количество товаров: " Width="135" Margin="0,0,244,171" Height="26" VerticalAlignment="Bottom" HorizontalAlignment="Right" />
         <xctk:IntegerUpDown Minimum="0" Maximum="100" Value="{Binding Path=ProductsNum}" Margin="0,0,121,171" Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="100" />
