@@ -9,7 +9,7 @@ namespace TreeWarehouse.ViewModel
 {
     public partial class MainViewModel : INotifyPropertyChanged
     {
-        private Folder _currentFolder = new Folder();
+        private Folder _currentFolder = null;
         private Warehouse _currentWarehouse = new Warehouse();
 
         public Folder CurrentFolder
@@ -19,6 +19,8 @@ namespace TreeWarehouse.ViewModel
             {
                 _currentFolder = value;
                 OnPropertyChanged(nameof(CurrentFolder));
+                OnPropertyChanged(nameof(DoProductsShow));
+                OnPropertyChanged(nameof(DoSubProductsShow));
             }
         }
 
@@ -32,6 +34,26 @@ namespace TreeWarehouse.ViewModel
                 
                 // If CurrentWarehouse is changed, then we should forget about previous CurrentFolder.
                 CurrentFolder = null;
+            }
+        }
+
+        public Visibility DoProductsShow {
+            get {
+                if (CurrentFolder != null)
+                    return Visibility.Visible;
+                else
+                    return Visibility.Collapsed;
+            }
+        }
+
+        public Visibility DoSubProductsShow {
+            get {
+                if (CurrentFolder != null 
+                    && CurrentFolder.SubProducts != null 
+                    && (CurrentFolder.SubProducts.Count > 0))
+                    return Visibility.Visible;
+                else
+                    return Visibility.Collapsed;
             }
         }
 
