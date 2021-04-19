@@ -9,6 +9,8 @@ namespace TreeWarehouse.ViewModel
 {
     public partial class MainViewModel
     {
+        // File with commands. Commands are used instead of Events in MVVM. \\
+
         private RelayCommand<Folder> _selectTreeItemCommand;
 
         public RelayCommand<Folder> SelectTreeItemCommand {
@@ -171,6 +173,20 @@ namespace TreeWarehouse.ViewModel
                         randomWindow.ShowDialog();
                     });
                 return _openRandomWindowCommand;
+            }
+        }
+
+        private RelayCommand _openHelpWindowCommand;
+
+        public RelayCommand OpenHelpWindowCommand {
+            get {
+                _openHelpWindowCommand = new RelayCommand(
+                    () =>
+                    {
+                        HelpWindow helpWindow = new HelpWindow();
+                        helpWindow.Show();
+                    });
+                return _openHelpWindowCommand;
             }
         }
     }

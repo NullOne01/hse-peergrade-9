@@ -1,0 +1,36 @@
+﻿<Window x:Class="TreeWarehouse.View.HelpWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TreeWarehouse.View"
+        mc:Ignorable="d"
+        Title="HelpWindow" Height="450" Width="800" ResizeMode="NoResize">
+    <Grid>
+        <StackPanel Orientation="Vertical">
+            <TextBlock TextWrapping="WrapWithOverflow" FontSize="18">
+            Работа с товарами:
+                <LineBreak />
+            1) Чтобы удалить товар, нужно выбрать строку в таблице и нажать Delete.
+                <LineBreak />
+            2) Чтобы добавить товар, нужно написать что-нибудь в пустую последнюю строку в таблице.
+                <LineBreak />
+            3) Чтобы изменить товар, нужно просто изменить значение ячейки в таблице.
+                <LineBreak />
+            Работа с разделами:
+                <LineBreak />
+            1) Чтобы изменить название раздела, нужно нажать на на название раздела и ввести новое название с клавиатуры.
+                <LineBreak />
+            2) Чтобы выбрать раздел, нужно нажать на строку раздела слева.
+                <LineBreak />
+            3) Чтобы добавить новый раздел, нужно нажать на ПКМ и выбрать нужную опцию.
+                <LineBreak />
+            4) Чтобы удалить раздел, нужно нажать на ПКМ и выбрать нужную опцию. 
+                <LineBreak />
+            Если раздел удалить нельзя, то будет невозможно нажать на соответствующую опцию.
+                <LineBreak />
+            Примечание: у товаров присутствует свойство "Описание", но нет свойства для сохранение картинки. Так и должно быть. Я не успел сделать последний доп. функционал.
+            </TextBlock>
+        </StackPanel>
+    </Grid>
+</Window>

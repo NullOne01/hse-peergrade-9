@@ -51,6 +51,9 @@
                 <MenuItem Header="Рандомайзер" Command="{Binding OpenRandomWindowCommand}"
                           CommandParameter="{Binding CurrentWarehouse}" />
             </MenuItem>
+            <MenuItem Header="Помощь">
+                <MenuItem Header="Открыть справку" Command="{Binding OpenHelpWindowCommand}"/>
+            </MenuItem>
         </Menu>
         <ScrollViewer Grid.Column="2" Margin="0,25,0,0">
             <StackPanel>
