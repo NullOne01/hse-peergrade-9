@@ -27,6 +27,9 @@ namespace TreeWarehouse.ViewModel
             }
         }
 
+        /// <summary>
+        /// Number of products to randomly generate.
+        /// </summary>
         public uint ProductsNum
         {
             get => _productsNum;
@@ -37,6 +40,9 @@ namespace TreeWarehouse.ViewModel
             }
         }
 
+        /// <summary>
+        /// Number of folders to randomly generate.
+        /// </summary>
         public uint FoldersNum
         {
             get => _foldersNum;

@@ -8,6 +8,9 @@ using TreeWarehouse.Model;
 
 namespace TreeWarehouse.View.Converters
 {
+    /// <summary>
+    /// Converter for auto-sorting treeView by Priority and Name properties.
+    /// </summary>
     class PriorityTreeSortConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {

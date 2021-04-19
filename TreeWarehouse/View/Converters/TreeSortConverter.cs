@@ -9,6 +9,9 @@ using TreeWarehouse.Model;
 
 namespace TreeWarehouse.View.Converters
 {
+    /// <summary>
+    /// Converter for auto-sorting treeView by 3 parameters: List, Property, SortDirection.
+    /// </summary>
     class TreeSortConverter : IMultiValueConverter
     {
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture) {

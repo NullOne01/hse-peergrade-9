@@ -5,6 +5,9 @@ using System.Text;
 
 namespace TreeWarehouse.Model.Report
 {
+    /// <summary>
+    /// Object for serializing CSV Report.
+    /// </summary>
     public class ReportCSV
     {
         string _path;

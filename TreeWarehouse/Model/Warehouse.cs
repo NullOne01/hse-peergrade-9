@@ -25,6 +25,11 @@ namespace TreeWarehouse.Model
             }
         }
 
+        /// <summary>
+        /// Deletes folder without checking conditions. 
+        /// </summary>
+        /// <param name="folderToRemove">Folder which will be removed. </param>
+        /// <returns> True if folder was removed. </returns>
         public bool ForceDeleteFolder(Folder folderToRemove)
         {
             if (folderToRemove.Parent != null)
@@ -32,10 +37,14 @@ namespace TreeWarehouse.Model
                 return folderToRemove.Parent.SubFolders.Remove(folderToRemove);
             }
 
-            // If folder is in root (no parent), then delete from root.
+            // If folder is in root (no parent), then delete from the root.
             return RootFolder.SubFolders.Remove(folderToRemove);
         }
 
+        /// <summary>
+        /// Get repost list using BFS algorithm.
+        /// </summary>
+        /// <returns> Report list. </returns>
         public List<ReportCSV> GetReportList() {
             List<ReportCSV> resultList = new List<ReportCSV>();
 
@@ -61,37 +70,6 @@ namespace TreeWarehouse.Model
             return resultList;
         }
 
-        /*public bool ForceDeleteFolder(Folder folderToRemove)
-        {
-            if (Folders.Count <= 0)
-                return false;
-            var bfsQueue = new Queue<Folder>();
-            foreach (var folder in Folders)
-            {
-                bfsQueue.Enqueue(folder);
-                if (folder == folderToRemove)
-                {
-                    return Folders.Remove(folderToRemove);
-                }
-            }
-
-            while (bfsQueue.Count > 0)
-            {
-                Folder newFolder = bfsQueue.Dequeue();
-                if (newFolder.SubFolders.Contains(folderToRemove))
-                {
-                    return newFolder.SubFolders.Remove(folderToRemove);
-                }
-
-                foreach (var newSubFolder in newFolder.SubFolders)
-                {
-                    bfsQueue.Enqueue(newSubFolder);
-                }
-            }
-
-            return false;
-        }*/
-        
         public event PropertyChangedEventHandler PropertyChanged;
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {

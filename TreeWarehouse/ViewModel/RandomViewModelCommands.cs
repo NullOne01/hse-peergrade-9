@@ -17,6 +17,9 @@ namespace TreeWarehouse.ViewModel
             }
         }
 
+        /// <summary>
+        /// Generating new Warehouse using ProductsNum and FoldersNum properties.
+        /// </summary>
         private void RandomizeWarehouse() {
             MainViewModel.CurrentWarehouse = new Warehouse();
 
@@ -24,6 +27,7 @@ namespace TreeWarehouse.ViewModel
             List<Folder> foldersToAdd = new List<Folder>();
             foldersToAdd.Add(MainViewModel.CurrentWarehouse.RootFolder);
 
+            // Generating random folders.
             for (int i = 0; i < FoldersNum; i++) {
                 int folderForChild = random.Next(0, foldersToAdd.Count);
                 Folder newFolder = Folder.CreateRandomFolder(random, foldersToAdd[folderForChild]);
@@ -31,6 +35,7 @@ namespace TreeWarehouse.ViewModel
                 foldersToAdd.Add(newFolder);
             }
 
+            // Filling random folders with random products.
             uint productsNumToAdd = ProductsNum;
             while (productsNumToAdd > 0) {
                 // randomFolder without rootFolder.

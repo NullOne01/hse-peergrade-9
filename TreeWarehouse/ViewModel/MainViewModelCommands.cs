@@ -46,6 +46,7 @@ namespace TreeWarehouse.ViewModel
 
         public RelayCommand<Folder> RemoveTreeItemCommand {
             get {
+                // Command is checking if we can delete the folder.
                 _removeTreeItemCommand = new RelayCommand<Folder>(
                     (folder) => { CurrentWarehouse.ForceDeleteFolder(folder); },
                     (folder) => folder != null && folder.Products.Count <= 0 && folder.SubFolders.Count <= 0);
@@ -57,6 +58,7 @@ namespace TreeWarehouse.ViewModel
 
         public RelayCommand<Warehouse> SaveWarehouseCommand {
             get {
+                // Dialogues are bad for MVVM here, but no shit's given.
                 _saveWarehouseCommand = new RelayCommand<Warehouse>(
                     (warehouse) =>
                     {
@@ -79,6 +81,7 @@ namespace TreeWarehouse.ViewModel
 
         public RelayCommand LoadWarehouseCommand {
             get {
+                // Dialogues are bad for MVVM here, but no shit's given.
                 _loadWarehouseCommand = new RelayCommand(
                     () =>
                     {
@@ -87,7 +90,6 @@ namespace TreeWarehouse.ViewModel
                             openFileDialog.Filter = "xml file(*.xml)|*.xml";
                             if ((bool)openFileDialog.ShowDialog()) {
                                 CurrentWarehouse = SaveLoadWarehouse.Load(openFileDialog.FileName);
-                                CurrentFolder = null;
                             }
                         }
                         catch {
@@ -102,6 +104,7 @@ namespace TreeWarehouse.ViewModel
 
         public RelayCommand<Warehouse> SaveReportCSVCommand {
             get {
+                // Dialogues are bad for MVVM here, but no shit's given.
                 _saveReportCSVCommand = new RelayCommand<Warehouse>(
                     (warehouse) =>
                     {
@@ -149,6 +152,7 @@ namespace TreeWarehouse.ViewModel
                             CurrentWarehouse = SaveLoadWarehouse.Load("last_session.xml");
                         }
                         catch {
+                            // If can't load last session, then just load empty warehouse.
                             CurrentWarehouse = new Warehouse();
                         }
                     });

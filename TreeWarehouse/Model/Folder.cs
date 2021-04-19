@@ -62,6 +62,7 @@ namespace TreeWarehouse.Model
             {
                 _subFolders = value;
                 OnPropertyChanged(nameof(SubFolders));
+                // Update SubProducts property if SubFolders were changed.
                 OnPropertyChanged(nameof(SubProducts));
             }
         }
@@ -72,6 +73,7 @@ namespace TreeWarehouse.Model
             get => _name;
             set
             {
+                // Recursive adding character "1" until Name is unique in the parent folder.
                 if (Parent != null && Parent.SubFolders.Any((folder) => folder.Name == value))
                 {
                     Name = value + "1";
@@ -95,11 +97,15 @@ namespace TreeWarehouse.Model
             }
         }
 
+        /// <summary>
+        /// Get collection of products which are contained in SubFolders.
+        /// </summary>
         public ObservableCollection<Product> SubProducts
         {
             get
             {
                 ObservableCollection<Product> resProducts = new ObservableCollection<Product>();
+                // Using BFS.
                 var bfsQueue = new Queue<Folder>();
                 bfsQueue.Enqueue(this);
 
@@ -124,6 +130,12 @@ namespace TreeWarehouse.Model
             }
         }
         
+        /// <summary>
+        /// Generates Folder with random property values.
+        /// </summary>
+        /// <param name="random"> Random object. </param>
+        /// <param name="parent"> Parent to assign to. </param>
+        /// <returns> Randomized folder. </returns>
         public static Folder CreateRandomFolder(Random random, Folder parent)
         {
             return new Folder(parent)
@@ -133,6 +145,10 @@ namespace TreeWarehouse.Model
             };
         }
 
+        /// <summary>
+        /// Get full path to the folder with slash separators.
+        /// </summary>
+        /// <returns> Full path. </returns>
         public string GetPath() {
             string path = Name;
             Folder nextParent = Parent;

@@ -17,6 +17,11 @@ namespace TreeWarehouse.Model
         private string _description;
         private ProductImage _image;
 
+        /// <summary>
+        /// Generates Product with random property values.
+        /// </summary>
+        /// <param name="random"> Random object. </param>
+        /// <returns> Randomized product. </returns>
         public static Product CreateRandomProduct(Random random)
         {
             return new Product()
@@ -85,6 +90,7 @@ namespace TreeWarehouse.Model
             }
         }
 
+        // Additional functionality.
         [DataMember]
         public string Description
         {
@@ -96,6 +102,7 @@ namespace TreeWarehouse.Model
             }
         }
 
+        // Additional functionality.
         [DataMember]
         public ProductImage Image
         {
