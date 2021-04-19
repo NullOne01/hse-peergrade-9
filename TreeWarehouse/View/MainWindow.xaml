@@ -23,6 +23,11 @@
         <local1:PriorityTreeSortConverter x:Key="priorityTreeSortConverter" />
     </Window.Resources>
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
         <Menu Height="25" VerticalAlignment="Top">
             <MenuItem Header="Файл">
                 <MenuItem Header="Сохранить" Command="{Binding SaveWarehouseCommand}"
@@ -38,7 +43,8 @@
                           CommandParameter="{Binding CurrentWarehouse}" />
             </MenuItem>
         </Menu>
-        <DataGrid Margin="233,25,0,0" ItemsSource="{Binding Path=CurrentFolder.Products}" AutoGenerateColumns="False">
+        <DataGrid ItemsSource="{Binding Path=CurrentFolder.Products}" 
+                  AutoGenerateColumns="False" Grid.Column="2" Margin="0, 25, 0, 0">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Название товара" Binding="{Binding Name}" />
                 <DataGridTextColumn Header="Артикул" Binding="{Binding VendorCode}" />
@@ -48,10 +54,13 @@
                 <DataGridTextColumn Header="Описание" Binding="{Binding Description}" />
             </DataGrid.Columns>
         </DataGrid>
-        <TreeView Margin="0, 25, 0, 0" HorizontalAlignment="Left" Width="233"
-                   ItemsSource="{Binding Path=CurrentWarehouse.RootFolder.SubFolders, 
+
+        <GridSplitter Grid.Column="1" ShowsPreview="False" Width="3"
+        HorizontalAlignment="Center" VerticalAlignment="Stretch" />
+
+        <TreeView ItemsSource="{Binding Path=CurrentWarehouse.RootFolder.SubFolders, 
                     Converter={StaticResource priorityTreeSortConverter}, 
-                    ConverterParameter=Priority}">
+                    ConverterParameter=Priority}" Grid.Column="0" Margin="0, 25, 0, 0">
 
             <TreeView.ContextMenu>
                 <ContextMenu>
