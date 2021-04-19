@@ -15,7 +15,7 @@ namespace TreeWarehouse.View.Converters
             ListCollectionView view = new ListCollectionView(collection);
             view.IsLiveSorting = true;
 
-            view.SortDescriptions.Add(new SortDescription("Priority", ListSortDirection.Ascending));
+            view.SortDescriptions.Add(new SortDescription("Priority", ListSortDirection.Descending));
             view.SortDescriptions.Add(new SortDescription("Name", ListSortDirection.Ascending));
 
             return view;

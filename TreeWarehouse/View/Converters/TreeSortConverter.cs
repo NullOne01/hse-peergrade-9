@@ -11,26 +11,6 @@ namespace TreeWarehouse.View.Converters
 {
     class TreeSortConverter : IMultiValueConverter
     {
-        public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
-            System.Collections.IList collection = value as System.Collections.IList;
-            ListCollectionView view = new ListCollectionView(collection);
-            Folder paramFolder = (Folder)parameter;
-            SortDescription sort = new SortDescription((paramFolder.Name), ListSortDirection.Ascending);
-            view.SortDescriptions.Add(sort);
-
-            return view;
-        }
-
-        /*public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture) {
-            System.Collections.IList collection = values[0] as System.Collections.IList;
-            ListCollectionView view = new ListCollectionView(collection);
-            Folder paramFolder = (Folder)parameter;
-            SortDescription sort = new SortDescription((paramFolder.Name), ListSortDirection.Ascending);
-            view.SortDescriptions.Add(sort);
-
-            return view;
-        }*/
-
         public object Convert(object[] values, Type targetType, object parameter, CultureInfo culture) {
             var Length = values.Length;
             if (Length >= 1 && Length < 3) {
@@ -51,10 +31,6 @@ namespace TreeWarehouse.View.Converters
                 Result.SortDescriptions.Add(new SortDescription(SortName, SortDirection));
                 return Result;
             }
-            return null;
-        }
-
-        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture) {
             return null;
         }
 
