@@ -4,10 +4,21 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TreeWarehouse"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
         xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Platform"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity" xmlns:local1="clr-namespace:TreeWarehouse.View.Converters"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closing">
+            <cmd:EventToCommand Command="{Binding Path=OnAppCloseCommand}" 
+                                CommandParameter="{Binding CurrentWarehouse}" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Loaded">
+            <cmd:EventToCommand Command="{Binding Path=OnAppLoadCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
     <Window.Resources>
         <local1:PriorityTreeSortConverter x:Key="priorityTreeSortConverter" />
     </Window.Resources>
@@ -20,6 +31,10 @@
             </MenuItem>
             <MenuItem Header="Отчёт">
                 <MenuItem Header="Сохранить CSV" Command="{Binding SaveReportCSVCommand}"
+                          CommandParameter="{Binding CurrentWarehouse}" />
+            </MenuItem>
+            <MenuItem Header="Генератор">
+                <MenuItem Header="Рандомайзер" Command="{Binding OpenRandomWindowCommand}"
                           CommandParameter="{Binding CurrentWarehouse}" />
             </MenuItem>
         </Menu>
@@ -37,19 +52,7 @@
                    ItemsSource="{Binding Path=CurrentWarehouse.RootFolder.SubFolders, 
                     Converter={StaticResource priorityTreeSortConverter}, 
                     ConverterParameter=Priority}">
-            <!--
-            ItemsSource="{Binding Path=CurrentWarehouse.RootFolder.SubFolders}"
-            -->
 
-            <!--
-            <TreeView.ItemsSource>
-                <MultiBinding Converter="{StaticResource treeSortConverter}">
-                    <Binding Path="CurrentWarehouse.RootFolder.SubFolders" />
-                    <Binding Source="Priority" />
-                </MultiBinding>
-            </TreeView.ItemsSource>
-            -->
-            
             <TreeView.ContextMenu>
                 <ContextMenu>
                     <MenuItem Header="Добавить раздел" Command="{Binding Path=AddRootItemCommand}" />
@@ -59,19 +62,8 @@
             <TreeView.ItemTemplate>
                 <HierarchicalDataTemplate ItemsSource="{Binding Path=SubFolders, 
                     Converter={StaticResource priorityTreeSortConverter}}">
-                    <!--
-                    ItemsSource="{Binding Path=SubFolders}"
-                    -->
-                    
-                    <!--
-                    <HierarchicalDataTemplate.ItemsSource>
-                        <MultiBinding Converter="{StaticResource treeSortConverter}" UpdateSourceTrigger="PropertyChanged">
-                            <Binding Path="SubFolders" />
-                            <Binding Source="Priority" />
-                        </MultiBinding>
-                    </HierarchicalDataTemplate.ItemsSource>
-                    -->
-                    
+
+                    <!-- Tags are needed to make possible bindings from ContextMenu -->
                     <StackPanel Orientation="Horizontal" Background="Transparent"
                                 ContextMenu="{DynamicResource treeItemContextMenu}"
                                 Tag="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
@@ -83,10 +75,10 @@
                                    ContextMenu="{DynamicResource treeItemContextMenu}"
                                    Tag="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
                                    Margin="10, 0, 0, 0" />
-                        <TextBox Style="{StaticResource SelectableTextBlockLikeStyle}" IsReadOnly="False"
-                                 ContextMenu="{DynamicResource treeItemContextMenu}"
-                                 Tag="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
-                                 Text="{Binding Priority, UpdateSourceTrigger=PropertyChanged}" Margin="10, 0, 0, 0" />
+                        <xctk:IntegerUpDown ContextMenu="{DynamicResource treeItemContextMenu}"
+                                            Tag="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                                            Value="{Binding Priority, UpdateSourceTrigger=PropertyChanged}" 
+                                            Margin="10, 0, 0, 0"/>
                         <StackPanel.Resources>
                             <ContextMenu x:Key="treeItemContextMenu"
                                          Tag="{Binding Path=PlacementTarget.Tag, RelativeSource={RelativeSource Self}}">
