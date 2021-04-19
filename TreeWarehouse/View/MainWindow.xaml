@@ -22,13 +22,13 @@
     <Window.Resources>
         <local1:PriorityTreeSortConverter x:Key="priorityTreeSortConverter" />
         <DataTemplate x:Key="DataTemplateStockNum">
-            <xctk:IntegerUpDown Value="{Binding StockNum, UpdateSourceTrigger=PropertyChanged}"/>
+            <xctk:IntegerUpDown Minimum="0" Value="{Binding StockNum, UpdateSourceTrigger=PropertyChanged}"/>
         </DataTemplate>
         <DataTemplate x:Key="DataTemplateCost">
-            <xctk:IntegerUpDown Value="{Binding Cost, UpdateSourceTrigger=PropertyChanged}"/>
+            <xctk:IntegerUpDown Minimum="0" Value="{Binding Cost, UpdateSourceTrigger=PropertyChanged}"/>
         </DataTemplate>
         <DataTemplate x:Key="DataTemplateNeedStockNum">
-            <xctk:IntegerUpDown Value="{Binding NeedStockNum, UpdateSourceTrigger=PropertyChanged}"/>
+            <xctk:IntegerUpDown Minimum="0" Value="{Binding NeedStockNum, UpdateSourceTrigger=PropertyChanged}"/>
         </DataTemplate>
     </Window.Resources>
     <Grid>
