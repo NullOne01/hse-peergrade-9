@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TreeWarehouse.View"
         mc:Ignorable="d"
-        Title="HelpWindow" Height="450" Width="800" ResizeMode="NoResize">
+        Title="Помощь" Height="450" Width="800" ResizeMode="NoResize">
     <Grid>
         <StackPanel Orientation="Vertical">
             <TextBlock TextWrapping="WrapWithOverflow" FontSize="18">
