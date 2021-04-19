@@ -19,10 +19,10 @@ namespace TreeWarehouse.View
     /// </summary>
     public partial class RandomWindow : Window
     {
-        public RandomWindow(Warehouse warehouse) {
+        public RandomWindow(MainViewModel mainViewModel) {
             InitializeComponent();
             
-            DataContext = new RandomViewModel(warehouse);
+            DataContext = new RandomViewModel(mainViewModel);
         }
     }
 }

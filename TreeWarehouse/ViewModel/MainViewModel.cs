@@ -29,6 +29,7 @@ namespace TreeWarehouse.ViewModel
             {
                 _currentWarehouse = value;
                 OnPropertyChanged(nameof(CurrentWarehouse));
+                CurrentFolder = new Folder();
             }
         }
 

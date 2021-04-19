@@ -9,22 +9,21 @@ namespace TreeWarehouse.ViewModel
 {
     public partial class RandomViewModel : INotifyPropertyChanged
     {
-        private Warehouse _currentWarehouse = new Warehouse();
+        private MainViewModel _mainViewModel;
         private uint _productsNum;
         private uint _foldersNum = 1;
 
-        public RandomViewModel(Warehouse currentWarehouse)
+        public RandomViewModel(MainViewModel mainViewModel)
         {
-            CurrentWarehouse = currentWarehouse;
+            MainViewModel = mainViewModel;
         }
 
-        public Warehouse CurrentWarehouse
-        {
-            get => _currentWarehouse;
+        public MainViewModel MainViewModel {
+            get => _mainViewModel;
             set
             {
-                _currentWarehouse = value;
-                OnPropertyChanged(nameof(CurrentWarehouse));
+                _mainViewModel = value;
+                OnPropertyChanged(nameof(MainViewModel));
             }
         }
 

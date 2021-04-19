@@ -18,10 +18,11 @@ namespace TreeWarehouse.ViewModel
         }
 
         private void RandomizeWarehouse() {
-            CurrentWarehouse.FullClear();
+            MainViewModel.CurrentWarehouse = new Warehouse();
+
             Random random = new Random();
             List<Folder> foldersToAdd = new List<Folder>();
-            foldersToAdd.Add(CurrentWarehouse.RootFolder);
+            foldersToAdd.Add(MainViewModel.CurrentWarehouse.RootFolder);
 
             for (int i = 0; i < FoldersNum; i++) {
                 int folderForChild = random.Next(0, foldersToAdd.Count);

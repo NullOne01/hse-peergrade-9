@@ -163,7 +163,7 @@ namespace TreeWarehouse.ViewModel
                 _openRandomWindowCommand = new RelayCommand(
                     () =>
                     {
-                        RandomWindow randomWindow = new RandomWindow(CurrentWarehouse);
+                        RandomWindow randomWindow = new RandomWindow(this);
                         randomWindow.ShowDialog();
                     });
                 return _openRandomWindowCommand;
