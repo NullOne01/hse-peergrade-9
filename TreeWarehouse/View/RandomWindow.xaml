@@ -1,0 +1,25 @@
+﻿<Window x:Class="TreeWarehouse.View.RandomWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TreeWarehouse.View" xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        mc:Ignorable="d"
+        Title="Рандомайзер" Height="300" Width="400" ResizeMode="NoResize">
+    <Grid>
+        <Label Content="Количество разделов: " Margin="0,0,244,231" Height="26" VerticalAlignment="Bottom"
+               HorizontalAlignment="Right" Width="135" />
+        <xctk:IntegerUpDown Height="25" Width="100" Minimum="1" Maximum="100" Value="{Binding Path=FoldersNum}"
+                            Margin="0,0,121,231" HorizontalAlignment="Right" VerticalAlignment="Bottom" />
+
+        <Label Content="Количество товаров: " Width="135" Margin="0,0,244,171" Height="26" VerticalAlignment="Bottom"
+               HorizontalAlignment="Right" />
+        <xctk:IntegerUpDown Minimum="0" Maximum="100" Value="{Binding Path=ProductsNum}" Margin="0,0,121,171"
+                            Height="25" VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="100" />
+
+        <Button Content="Создать склад" HorizontalAlignment="Center" Margin="0,226,0,0" VerticalAlignment="Top"
+                Height="30" Width="100" Command="{Binding RandomizeWarehouseCommand}" />
+        <Label Content="Внимание! Прошлый склад очистится! " HorizontalAlignment="Left" Margin="21,159,0,0"
+               VerticalAlignment="Top" />
+    </Grid>
+</Window>

@@ -4,16 +4,154 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TreeWarehouse"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:cmd="clr-namespace:GalaSoft.MvvmLight.Command;assembly=GalaSoft.MvvmLight.Platform"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:local1="clr-namespace:TreeWarehouse.View.Converters"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="Главное окно" Height="675" Width="1200">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closing">
+            <cmd:EventToCommand Command="{Binding Path=OnAppCloseCommand}"
+                                CommandParameter="{Binding CurrentWarehouse}" />
+        </i:EventTrigger>
+        <i:EventTrigger EventName="Loaded">
+            <cmd:EventToCommand Command="{Binding Path=OnAppLoadCommand}" />
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+
+    <Window.Resources>
+        <local1:PriorityTreeSortConverter x:Key="priorityTreeSortConverter" />
+        <DataTemplate x:Key="DataTemplateStockNum">
+            <xctk:IntegerUpDown Minimum="0" Value="{Binding StockNum, UpdateSourceTrigger=PropertyChanged}" />
+        </DataTemplate>
+        <DataTemplate x:Key="DataTemplateCost">
+            <xctk:IntegerUpDown Minimum="0" Value="{Binding Cost, UpdateSourceTrigger=PropertyChanged}" />
+        </DataTemplate>
+        <DataTemplate x:Key="DataTemplateNeedStockNum">
+            <xctk:IntegerUpDown Minimum="0" Value="{Binding NeedStockNum, UpdateSourceTrigger=PropertyChanged}" />
+        </DataTemplate>
+    </Window.Resources>
     <Grid>
-        <DataGrid Margin="233,0,0,0" ItemsSource="{Binding Path=CurrentFolder.Products}" AutoGenerateColumns="False">
-            <DataGrid.Columns>
-                <DataGridTextColumn Header="Название товара" Binding="{Binding Name}" />
-                <DataGridTextColumn Header="Артикул" Binding="{Binding VendorCode}" />
-                <DataGridTextColumn Header="Количество" Binding="{Binding StockNum}" />
-                <DataGridTextColumn Header="Цена" Binding="{Binding Cost}" />
-            </DataGrid.Columns>
-        </DataGrid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <Menu Height="25" VerticalAlignment="Top">
+            <MenuItem Header="Файл">
+                <MenuItem Header="Сохранить" Command="{Binding SaveWarehouseCommand}"
+                          CommandParameter="{Binding CurrentWarehouse}" />
+                <MenuItem Header="Загрузить" Command="{Binding LoadWarehouseCommand}" />
+            </MenuItem>
+            <MenuItem Header="Отчёт">
+                <MenuItem Header="Сохранить CSV" Command="{Binding SaveReportCSVCommand}"
+                          CommandParameter="{Binding CurrentWarehouse}" />
+            </MenuItem>
+            <MenuItem Header="Генератор">
+                <MenuItem Header="Рандомайзер" Command="{Binding OpenRandomWindowCommand}"
+                          CommandParameter="{Binding CurrentWarehouse}" />
+            </MenuItem>
+            <MenuItem Header="Помощь">
+                <MenuItem Header="Открыть справку" Command="{Binding OpenHelpWindowCommand}" />
+            </MenuItem>
+        </Menu>
+        <ScrollViewer Grid.Column="2" Margin="0,25,0,0">
+            <StackPanel Visibility="{Binding DoProductsShow}">
+                <Label Content="Товары в разделе:" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                <DataGrid ItemsSource="{Binding Path=CurrentFolder.Products}"
+                          AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Название товара" Binding="{Binding Name}" />
+                        <DataGridTextColumn Header="Артикул" Binding="{Binding VendorCode}" />
+                        <DataGridTemplateColumn Header="Количество"
+                                                CellTemplate="{StaticResource DataTemplateStockNum}" />
+                        <DataGridTemplateColumn Header="Цена"
+                                                CellTemplate="{StaticResource DataTemplateCost}" />
+                        <DataGridTemplateColumn Header="Сколько требуется"
+                                                CellTemplate="{StaticResource DataTemplateNeedStockNum}" />
+                        <DataGridTextColumn Header="Описание" Binding="{Binding Description}" />
+                    </DataGrid.Columns>
+                </DataGrid>
+                <Label Content="Товары в подразделах:" Visibility="{Binding DoSubProductsShow}"
+                       HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,25,0,0" />
+                <DataGrid ItemsSource="{Binding Path=CurrentFolder.SubProducts}"
+                          AutoGenerateColumns="False" Visibility="{Binding DoSubProductsShow}"
+                          CanUserAddRows="False" CanUserDeleteRows="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Название товара" Binding="{Binding Name}" />
+                        <DataGridTextColumn Header="Артикул" Binding="{Binding VendorCode}" />
+                        <DataGridTemplateColumn Header="Количество"
+                                                CellTemplate="{StaticResource DataTemplateStockNum}" />
+                        <DataGridTemplateColumn Header="Цена"
+                                                CellTemplate="{StaticResource DataTemplateCost}" />
+                        <DataGridTemplateColumn Header="Сколько требуется"
+                                                CellTemplate="{StaticResource DataTemplateNeedStockNum}" />
+                        <DataGridTextColumn Header="Описание" Binding="{Binding Description}" />
+                    </DataGrid.Columns>
+                </DataGrid>
+            </StackPanel>
+        </ScrollViewer>
+        <GridSplitter Grid.Column="1" ShowsPreview="False" Width="3"
+                      HorizontalAlignment="Center" VerticalAlignment="Stretch" />
+
+        <TreeView
+            ItemsSource="{Binding Path=CurrentWarehouse.RootFolder.SubFolders, 
+                    Converter={StaticResource priorityTreeSortConverter}, 
+                    ConverterParameter=Priority}"
+            Grid.Column="0" Margin="0, 25, 0, 0">
+
+            <TreeView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Добавить раздел" Command="{Binding Path=AddRootItemCommand}" />
+                </ContextMenu>
+            </TreeView.ContextMenu>
+
+            <TreeView.ItemTemplate>
+                <HierarchicalDataTemplate
+                    ItemsSource="{Binding Path=SubFolders, 
+                    Converter={StaticResource priorityTreeSortConverter}}">
+
+                    <!-- Tags are needed to make possible bindings from ContextMenu -->
+                    <StackPanel Orientation="Horizontal" Background="Transparent"
+                                ContextMenu="{DynamicResource treeItemContextMenu}"
+                                Tag="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}">
+                        <TextBox Style="{StaticResource SelectableTextBlockLikeStyle}" IsReadOnly="False"
+                                 ContextMenu="{DynamicResource treeItemContextMenu}"
+                                 Tag="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                                 Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" />
+                        <TextBlock Text="Код сортировки:"
+                                   ContextMenu="{DynamicResource treeItemContextMenu}"
+                                   Tag="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                                   Margin="10, 0, 0, 0" />
+                        <xctk:IntegerUpDown ContextMenu="{DynamicResource treeItemContextMenu}"
+                                            Tag="{Binding RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                                            Value="{Binding Priority, UpdateSourceTrigger=PropertyChanged}"
+                                            Margin="10, 0, 0, 0" />
+                        <StackPanel.Resources>
+                            <ContextMenu x:Key="treeItemContextMenu"
+                                         Tag="{Binding Path=PlacementTarget.Tag, RelativeSource={RelativeSource Self}}">
+                                <MenuItem Header="Добавить раздел"
+                                          Command="{Binding Path=PlacementTarget.Tag.DataContext.AddTreeItemCommand, 
+                                    RelativeSource={RelativeSource AncestorType=ContextMenu}}"
+                                          CommandParameter="{Binding}" />
+                                <MenuItem Header="Удалить раздел"
+                                          Command="{Binding Path=PlacementTarget.Tag.DataContext.RemoveTreeItemCommand, 
+                                        RelativeSource={RelativeSource AncestorType=ContextMenu}}"
+                                          CommandParameter="{Binding}" />
+                            </ContextMenu>
+                        </StackPanel.Resources>
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="PreviewMouseLeftButtonUp">
+                                <cmd:EventToCommand
+                                    Command="{Binding Path=DataContext.SelectTreeItemCommand, 
+                                        RelativeSource={RelativeSource AncestorType={x:Type Window}}}"
+                                    CommandParameter="{Binding}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </StackPanel>
+                </HierarchicalDataTemplate>
+            </TreeView.ItemTemplate>
+        </TreeView>
     </Grid>
 </Window>

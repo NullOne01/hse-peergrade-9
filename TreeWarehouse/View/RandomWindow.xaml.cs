@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -10,21 +8,21 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TreeWarehouse.Model;
 using TreeWarehouse.ViewModel;
 
-namespace TreeWarehouse
+namespace TreeWarehouse.View
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for RandomWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class RandomWindow : Window
     {
-        public MainWindow() {
+        public RandomWindow(MainViewModel mainViewModel) {
             InitializeComponent();
-
-            DataContext = new MainViewModel();
+            
+            DataContext = new RandomViewModel(mainViewModel);
         }
     }
 }
